@@ -80,3 +80,7 @@ function spillRectangle() {
 }
 
 CustomFunctions.associate("ADD", add);
+CustomFunctions.associate("CLOCK", clock);
+CustomFunctions.associate("INCREMENT", increment);
+CustomFunctions.associate("LOG", logMessage);
+CustomFunctions.associate("SPILLRECTANGLE", spillRectangle);
