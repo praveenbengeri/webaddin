@@ -78,3 +78,5 @@ function spillRectangle() {
         ['pears', 5, 'crates']
     ];
 }
+
+CustomFunctions.associate("ADD", add);
