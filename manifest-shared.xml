@@ -8,9 +8,9 @@
 	<Description DefaultValue="A WebAddIn Playground."/>
 	<IconUrl DefaultValue="https://praveenbengeri.github.io/webaddin/assets/icon-32.png"/>
 	<HighResolutionIconUrl DefaultValue="https://praveenbengeri.github.io/webaddin/assets/icon-64.png"/>
-	<SupportUrl DefaultValue="https://www.contoso.com/help"/>
+	<SupportUrl DefaultValue="https://praveenbengeri.github.io/webaddin/help"/>
 	<AppDomains>
-		<AppDomain>https://www.contoso.com</AppDomain>
+		<AppDomain>https://praveenbengeri.github.io/webaddin/</AppDomain>
 	</AppDomains>
 	<Hosts>
 		<Host Name="Workbook"/>
@@ -100,7 +100,7 @@
 				<bt:Url id="Taskpane.Url" DefaultValue="https://praveenbengeri.github.io/webaddin/taskpane.html"/>
 			</bt:Urls>
 			<bt:ShortStrings>
-				<bt:String id="Functions.Namespace" DefaultValue="CONTOSO"/>
+				<bt:String id="Functions.Namespace" DefaultValue="PRAVEENBSHARED"/>
 				<bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
 				<bt:String id="CommandsGroup.Label" DefaultValue="Commands Group"/>
 				<bt:String id="TaskpaneButton.Label" DefaultValue="Show Taskpane"/>
