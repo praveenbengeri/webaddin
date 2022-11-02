@@ -4,7 +4,7 @@
 	<Version>1.0.0.0</Version>
 	<ProviderName>Praveenb Company</ProviderName>
 	<DefaultLocale>en-US</DefaultLocale>
-	<DisplayName DefaultValue="Praveenb WebAddIn"/>
+	<DisplayName DefaultValue="Praveenb WebAddIn (Shared)"/>
 	<Description DefaultValue="A WebAddIn Playground."/>
 	<IconUrl DefaultValue="https://praveenbengeri.github.io/webaddin/assets/icon-32.png"/>
 	<HighResolutionIconUrl DefaultValue="https://praveenbengeri.github.io/webaddin/assets/icon-64.png"/>
