@@ -37,7 +37,7 @@
 							<SourceLocation resid="Functions.Script.Url"/>
 						</Script>
 						<Page>
-							<SourceLocation resid="Functions.Page.Url"/>
+							<SourceLocation resid="Taskpane.Url"/>
 						</Page>
 						<Metadata>
 							<SourceLocation resid="Functions.Metadata.Url"/>
@@ -51,7 +51,7 @@
 						<Description resid="GetStarted.Description"/>
 						<LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
 					</GetStarted>
-					<FunctionFile resid="Commands.Url"/>
+					<FunctionFile resid="Taskpane.Url"/>
 					<ExtensionPoint xsi:type="PrimaryCommandSurface">
 						<OfficeTab id="TabHome">
 							<Group id="CommandsGroup">
@@ -94,9 +94,7 @@
 				<bt:Url id="Functions.Metadata.Url" DefaultValue="https://praveenbengeri.github.io/webaddin/functions.json"/>
 				<bt:Url id="Functions.Page.Url" DefaultValue="https://praveenbengeri.github.io/webaddin/functions.html"/>
 				<bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
-				<!--
-				<bt:Url id="Commands.Url" DefaultValue="https://praveenbengeri.github.io/webaddin/commands.html"/>
-				-->
+				<!--<bt:Url id="Commands.Url" DefaultValue="https://praveenbengeri.github.io/webaddin/commands.html"/>-->
 				<bt:Url id="Taskpane.Url" DefaultValue="https://praveenbengeri.github.io/webaddin/taskpane.html"/>
 			</bt:Urls>
 			<bt:ShortStrings>
