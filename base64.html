@@ -46,7 +46,16 @@
             $("#LoadDocumentFromBase64").click(() => tryCatch(LoadDocumentFromBase64));
             $("#InsertFileFromBase64").click(() => tryCatch(InsertFileFromBase64));
         }
-
+        
+        Office.onReady(function() {
+            // Office is ready
+            $(document).ready(function () {
+                // The document is ready
+                $("#GetFileContent").click(() => tryCatch(GetFileContent));
+                    $("#LoadDocumentFromBase64").click(() => tryCatch(LoadDocumentFromBase64));
+                    $("#InsertFileFromBase64").click(() => tryCatch(InsertFileFromBase64));
+            });
+        });
         function GetFileContent() {
             Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: 65536 /*64 KB*/ }, function (result) {
                 if (result.status == Office.AsyncResultStatus.Succeeded) {
