@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 10px;
+        }
+
+
+        /* Button customization, including overwriting some Fabric defaults */
+
+        .ms-Button, .ms-Button:focus {
+            background: #2b579a;
+            border: #2b579a;
+        }
+
+            .ms-Button > .ms-Button-label,
+            .ms-Button:focus > .ms-Button-label,
+            .ms-Button:hover > .ms-Button-label {
+                color: white;
+            }
+
+            .ms-Button:hover, .ms-Button:active {
+                background: #204072;
+            }
+
+            .ms-Button.is-disabled, .ms-Button:disabled {
+                background-color: #f4f4f4;
+                border-color: #f4f4f4;
+            }
+
+                .ms-Button.is-disabled .ms-Button-label,
+                .ms-Button:disabled .ms-Button-label {
+                    color: #a6a6a6;
+                }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <script>
+    function fnLoad() {
+            $("#GetFileContent").click(() => tryCatch(GetFileContent));
+            $("#LoadDocumentFromBase64").click(() => tryCatch(LoadDocumentFromBase64));
+            $("#InsertFileFromBase64").click(() => tryCatch(InsertFileFromBase64));
+        }
+
+        function GetFileContent() {
+            Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: 65536 /*64 KB*/ }, function (result) {
+                if (result.status == Office.AsyncResultStatus.Succeeded) {
+                    // If the getFileAsync call succeeded, then
+                    // result.value will return a valid File Object.
+                    var myFile = result.value;
+                    var sliceCount = myFile.sliceCount;
+                    var slicesReceived = 0,
+                        gotAllSlices = true,
+                        docdataSlices = [];
+                    console.log("File size:" + myFile.size + " #Slices: " + sliceCount);
+
+                    // Get the file slices.
+                    getSliceAsync(myFile, 0, sliceCount, gotAllSlices, docdataSlices, slicesReceived);
+                } else {
+                    console.log("getDocumentAsCompressed start3");
+                    console.log("Error:", result.error.message);
+                }
+            });
+        }
+        function getSliceAsync(file, nextSlice, sliceCount, gotAllSlices, docdataSlices, slicesReceived) {
+            file.getSliceAsync(nextSlice, function (sliceResult) {
+                if (sliceResult.status == "succeeded") {
+                    if (!gotAllSlices) {
+                        // Failed to get all slices, no need to continue.
+                        return;
+                    }
+                    // Got one slice, store it in a temporary array.
+                    // (Or you can do something else, such as
+                    // send it to a third-party server.)
+                    docdataSlices[sliceResult.value.index] = sliceResult.value.data;
+                    if (++slicesReceived == sliceCount) {
+                        // All slices have been received.
+                        file.closeAsync();
+                        onGotAllSlices(docdataSlices);
+                    } else {
+                        getSliceAsync(file, ++nextSlice, sliceCount, gotAllSlices, docdataSlices, slicesReceived);
+                    }
+                } else {
+                    gotAllSlices = false;
+                    file.closeAsync();
+                    console.log("getSliceAsync Error:", sliceResult.error.message);
+                }
+            });
+        }
+        function onGotAllSlices(docdataSlices) {
+            var docdata = [];
+
+            for (var i = 0; i < docdataSlices.length; i++) {
+                docdata = docdata.concat(docdataSlices[i]);
+            }
+
+            console.log("We've got all slices!");
+            var fileContent = new String();
+            for (var j = 0; j < docdata.length; j++) {
+                fileContent += String.fromCharCode(docdata[j]);
+            }
+
+            var docbase64Data = window.btoa(fileContent.toString());
+            $("#binaryContent").text(fileContent.toString());
+            $("#base64FileContent").text(docbase64Data);
+        }
+
+        function LoadDocumentFromBase64() {
+            Word.run(function (context) {
+                OfficeExtension.config.extendedErrorLogging = true;
+                var docbase64Data = $("#base64FileContent").text();
+                console.log(docbase64Data);
+                if (docbase64Data.length > 0) {
+                    var myNewDoc = context.application.createDocument(docbase64Data);
+                    myNewDoc.open();
+                    return context
+                        .sync()
+                        .then(function () {
+                            console.log("worked!");
+                        })
+                        .catch(function (e) {
+                            console.log(e);
+                        });
+                } else {
+                    console.log("Invalid base64 content!");
+                }
+            }).catch();
+        }
+
+        function InsertFileFromBase64() {
+            Word.run(function (context) {
+                OfficeExtension.config.extendedErrorLogging = true;
+                var docbase64Data = $("#base64FileContent").text();
+                console.log(docbase64Data);
+                var body = context.document.body;
+                body.clear();
+                body.insertFileFromBase64(docbase64Data, Word.InsertLocation.replace);
+                return context
+                    .sync()
+                    .then(function () {
+                        console.log("worked!");
+                    })
+                    .catch(function (e) {
+                        console.log(e);
+                    });
+            }).catch();
+        }
+
+        /** Default helper for invoking an action and handling errors. */
+        function tryCatch(callback) {
+            Promise.resolve()
+                .then(callback)
+                .catch(function (error) {
+                    OfficeHelpers.UI.notify(error);
+                    OfficeHelpers.Utilities.log(error);
+                });
+        }</script>
+</head>
+<body onload="fnLoad()">
+    <p class="ms-font-m">
+        This sample demonstrates getting document content, and using this content to open a new document!
+    </p>
+    <br />
+    <button id="GetFileContent" class="ms-Button">
+        <span class="ms-Button-label">GetFileContent</span>
+    </button>
+    <button id="InsertFileFromBase64" class="ms-Button">
+        <span class="ms-Button-label">InsertFileFromBase64</span>
+    </button>
+    <br />
+    <span class="ms-font-m">Base64 file content:</span>
+    <br />
+<textarea id="base64FileContent" rows="20" cols="50">
+</textarea>
+    <br />
+<textarea id="binaryContent" rows="20" cols="50">
+</textarea>
+    <br />
+    <button id="LoadDocumentFromBase64" class="ms-Button">
+        <span class="ms-Button-label">LoadDocumentFromBase64</span>
+    </button>
+
+</body>
+</html>
