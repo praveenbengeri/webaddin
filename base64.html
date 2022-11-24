@@ -53,9 +53,9 @@
             // Office is ready
             $(document).ready(function () {
                 // The document is ready
-                $("#GetFileContent").click(() => tryCatch(GetFileContent));
-                    $("#LoadDocumentFromBase64").click(() => tryCatch(LoadDocumentFromBase64));
-                    $("#InsertFileFromBase64").click(() => tryCatch(InsertFileFromBase64));
+                $("#GetFileContent").click(() { tryCatch(GetFileContent)});
+                    $("#LoadDocumentFromBase64").click(() { tryCatch(LoadDocumentFromBase64)});
+                    $("#InsertFileFromBase64").click(() { tryCatch(InsertFileFromBase64)});
             });
         });
         
