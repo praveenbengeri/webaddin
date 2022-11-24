@@ -53,9 +53,9 @@
             // Office is ready
             $(document).ready(function () {
                 // The document is ready
-                $("#GetFileContent").click(function() { tryCatch(GetFileContent) });
-                $("#LoadDocumentFromBase64").click(function() { tryCatch(LoadDocumentFromBase64) });
-                $("#InsertFileFromBase64").click(function() { tryCatch(InsertFileFromBase64) });
+                $("#GetFileContent").click(function() { GetFileContent()});
+                $("#LoadDocumentFromBase64").click(function() { LoadDocumentFromBase64() });
+                $("#InsertFileFromBase64").click(function() { InsertFileFromBase64() });
             });
         });
 
@@ -164,6 +164,7 @@
         }
 
         /** Default helper for invoking an action and handling errors. */
+        /*
         function tryCatch(callback) {
             Promise.resolve()
                 .then(callback)
@@ -171,7 +172,9 @@
                     OfficeHelpers.UI.notify(error);
                     OfficeHelpers.Utilities.log(error);
                 });
-        }</script>
+        }
+        */
+    </script>
 </head>
 <body>
     <p class="ms-font-m">
