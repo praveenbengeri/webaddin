@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.0/css/fabric.min.css"/>
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.0/css/fabric.min.css" />
     <style>
         body {
             margin: 0;
@@ -41,24 +41,24 @@
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
     <script>
-    /*
-    function fnLoad() {
-            $("#GetFileContent").click({tryCatch(GetFileContent)});
-            $("#LoadDocumentFromBase64").click({ tryCatch(LoadDocumentFromBase64)});
-            $("#InsertFileFromBase64").click({ tryCatch(InsertFileFromBase64)});
-     }
-     */
-        
-        Office.onReady(function() {
+        /*
+        function fnLoad() {
+                $("#GetFileContent").click({tryCatch(GetFileContent)});
+                $("#LoadDocumentFromBase64").click({ tryCatch(LoadDocumentFromBase64)});
+                $("#InsertFileFromBase64").click({ tryCatch(InsertFileFromBase64)});
+         }
+         */
+
+        Office.onReady(function () {
             // Office is ready
             $(document).ready(function () {
                 // The document is ready
-                $("#GetFileContent").click(() { tryCatch(GetFileContent)});
-                    $("#LoadDocumentFromBase64").click(() { tryCatch(LoadDocumentFromBase64)});
-                    $("#InsertFileFromBase64").click(() { tryCatch(InsertFileFromBase64)});
+                $("#GetFileContent").click(function() { tryCatch(GetFileContent) });
+                $("#LoadDocumentFromBase64").click(function() { tryCatch(LoadDocumentFromBase64) });
+                $("#InsertFileFromBase64").click(function() { tryCatch(InsertFileFromBase64) });
             });
         });
-        
+
         function GetFileContent() {
             Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: 65536 /*64 KB*/ }, function (result) {
                 if (result.status == Office.AsyncResultStatus.Succeeded) {
