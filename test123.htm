@@ -6,14 +6,24 @@
   function openDoc()
   {
       alert("openDoc called");
-      window.location.href= 'ms-word:ofe|u|\\\\praveenb-4.fareast.corp.microsoft.com\\inout\\hello.docx';
+      window.location.href= 'ms-word:ofe|u|\\\\praveenb-4\\inout\\hello.docx';
       window.location='test123.htm';
    }
+    
+  function openDoc2()
+  {
+      alert("openDoc called");
+      window.location.href= 'ms-word:ofe|u|file:///\\\\praveenb-4\\inout\\hello.docx';
+      window.location='test123.htm';
+   }
+
   </script>
 </head>
 <body>
   <h1>11:32 PM 11/30/2022</h1>
   <input type="button" value="Open Document" onclick="openDoc()"/>
+  <br/>
+  <input type="button" value="Open Document 2" onclick="openDoc()"/>
   <br/>
   <a href="\\praveenb-4.fareast.corp.microsoft.com\inout\MyMacroFile.xlsm">Excel</a><br/>
   <a href="\\praveenb-4.fareast.corp.microsoft.com\inout\GetPoint.docm">Word</a><br/>
