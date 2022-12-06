@@ -73,10 +73,12 @@
             Word.run(function (context) {
                 OfficeExtension.config.extendedErrorLogging = true;
                 var bodyXml = $("#ooxmlContent").text();
-                console.log(bodyXml);
-                var body = context.document.body;
                 
-                body.insertOoxml(bodyXml, Word.InsertLocation.end);
+                console.log(bodyXml);
+                //var body = context.document.body;
+                range = context.document.getSelection();
+
+                range.insertOoxml(bodyXml, Word.InsertLocation.end);
                 return context
                     .sync()
                     .then(function () {
