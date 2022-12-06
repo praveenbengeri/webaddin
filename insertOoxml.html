@@ -52,18 +52,20 @@
         });
 
         function GetOoxml() {
-            var body = context.document.body;
+            Word.run(function (context) {
+                var body = context.document.body;
 
-            var bodyXml = body.getOoxml();
+                var bodyXml = body.getOoxml();
 
-            return context
-                .sync()
-                .then(function () {
-                    $("#ooxmlContent").text(bodyXml);
-                })
-                .catch(function (e) {
-                    console.log(e);
-                });
+                return context
+                    .sync()
+                    .then(function () {
+                        $("#ooxmlContent").text(bodyXml);
+                    })
+                    .catch(function (e) {
+                        console.log(e);
+                    });
+            });
         }
         
        
