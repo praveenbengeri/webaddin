@@ -53,7 +53,7 @@
 
         function GetOoxml() {
 
-            var bodyXml = Office.context.document.GetOoxml();
+            var bodyXml = Office.context.document.getOoxml();
 
             return context
                 .sync()
@@ -73,7 +73,7 @@
                 console.log(bodyXml);
                 var body = context.document.body;
                 
-                body.InsertOoxml(bodyXml, Word.InsertLocation.end);
+                body.insertOoxml(bodyXml, Word.InsertLocation.end);
                 return context
                     .sync()
                     .then(function () {
