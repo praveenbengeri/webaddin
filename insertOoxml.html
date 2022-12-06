@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.0/css/fabric.min.css" />
+    <style>
+            body {
+                margin: 0;
+                padding: 10px;
+            }
+
+            /* Button customization, including overwriting some Fabric defaults */
+
+            .ms-Button, .ms-Button:focus {
+                background: #2b579a;
+                border: #2b579a;
+            }
+
+            .ms-Button > .ms-Button-label,
+            .ms-Button:focus > .ms-Button-label,
+            .ms-Button:hover > .ms-Button-label {
+                color: white;
+            }
+
+            .ms-Button:hover, .ms-Button:active {
+                background: #204072;
+            }
+
+            .ms-Button.is-disabled, .ms-Button:disabled {
+                background-color: #f4f4f4;
+                border-color: #f4f4f4;
+            }
+
+                .ms-Button.is-disabled .ms-Button-label,
+                .ms-Button:disabled .ms-Button-label {
+                    color: #a6a6a6;
+                }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.debug.js"></script>
+    <script>
+
+        Office.onReady(function () {
+            // Office is ready
+            $(document).ready(function () {
+                // The document is ready
+                $("#GetOoxml").click(function() { GetOoxml()});
+                $("#InsertOoxml").click(function() { InsertOoxml() });
+            });
+        });
+
+        function GetOoxml() {
+
+            var bodyXml = Office.context.document.GetOoxml();
+
+            return context
+                .sync()
+                .then(function () {
+                    $("#ooxmlContent").text(bodyXml);
+                })
+                .catch(function (e) {
+                    console.log(e);
+                });
+        }
+        
+       
+        function InsertOoxml() {
+            Word.run(function (context) {
+                OfficeExtension.config.extendedErrorLogging = true;
+                var bodyXml = $("#ooxmlContent").text();
+                console.log(bodyXml);
+                var body = context.document.body;
+                
+                body.InsertOoxml(bodyXml, Word.InsertLocation.end);
+                return context
+                    .sync()
+                    .then(function () {
+                        console.log("worked!");
+                    })
+                    .catch(function (e) {
+                        console.log(e);
+                    });
+            }).catch();
+        }
+    </script>
+</head>
+<body>
+    <h1>Version 1.0</h1>
+    <p class="ms-font-m">
+        This sample demonstrates getting OoXml, and using it to insert into document using Office js version 1, debug version.
+    </p>
+    <br />
+    <button id="GetOoxml" class="ms-Button">
+        <span class="ms-Button-label">GetOoxml</span>
+    </button>
+    <button id="InsertOoxml" class="ms-Button">
+        <span class="ms-Button-label">InsertOoxml</span>
+    </button>
+    <br />
+    <span class="ms-font-m">Ooxml :</span>
+    <br />
+    <textarea id="ooxmlContent" rows="20" cols="50">
+    </textarea>
+</body>
+</html>
