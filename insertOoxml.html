@@ -52,8 +52,9 @@
         });
 
         function GetOoxml() {
+            var body = context.document.body;
 
-            var bodyXml = Office.context.document.getOoxml();
+            var bodyXml = body.getOoxml();
 
             return context
                 .sync()
