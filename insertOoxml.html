@@ -60,7 +60,7 @@
                 return context
                     .sync()
                     .then(function () {
-                        $("#ooxmlContent").text(bodyXml);
+                        $("#ooxmlContent").text(bodyXml.value);
                     })
                     .catch(function (e) {
                         console.log(e);
