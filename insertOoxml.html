@@ -42,57 +42,57 @@
     <!--
 
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.debug.js"></script>
-    <script>
+
         -->
     <script type="text/javascript" src="office-js/v1.1.79/office.debug.js"></script>
+    <script>
+        Office.onReady(function () {
+            // Office is ready
+            $(document).ready(function () {
+                // The document is ready
+                $("#GetOoxml").click(function () { GetOoxml() });
+                $("#InsertOoxml").click(function () { InsertOoxml() });
+            });
+        });
 
-    Office.onReady(function () {
-    // Office is ready
-    $(document).ready(function () {
-    // The document is ready
-    $("#GetOoxml").click(function() { GetOoxml()});
-    $("#InsertOoxml").click(function() { InsertOoxml() });
-    });
-    });
+        function GetOoxml() {
+            Word.run(function (context) {
+                var body = context.document.body;
 
-    function GetOoxml() {
-    Word.run(function (context) {
-    var body = context.document.body;
+                var bodyXml = body.getOoxml();
 
-    var bodyXml = body.getOoxml();
-
-    return context
-    .sync()
-    .then(function () {
-    $("#ooxmlContent").text(bodyXml.value);
-    })
-    .catch(function (e) {
-    console.log(e);
-    });
-    });
-    }
+                return context
+                    .sync()
+                    .then(function () {
+                        $("#ooxmlContent").text(bodyXml.value);
+                    })
+                    .catch(function (e) {
+                        console.log(e);
+                    });
+            });
+        }
 
 
-    function InsertOoxml() {
-    Word.run(function (context) {
-    OfficeExtension.config.extendedErrorLogging = true;
-    var bodyXml = $("#ooxmlContent").text();
+        function InsertOoxml() {
+            Word.run(function (context) {
+                OfficeExtension.config.extendedErrorLogging = true;
+                var bodyXml = $("#ooxmlContent").text();
 
-    console.log(bodyXml);
-    //var body = context.document.body;
-    range = context.document.getSelection();
+                console.log(bodyXml);
+                //var body = context.document.body;
+                range = context.document.getSelection();
 
-    range.insertOoxml(bodyXml, Word.InsertLocation.end);
-    return context
-    .sync()
-    .then(function () {
-    console.log("worked!");
-    })
-    .catch(function (e) {
-    console.log(e);
-    });
-    }).catch();
-    }
+                range.insertOoxml(bodyXml, Word.InsertLocation.end);
+                return context
+                    .sync()
+                    .then(function () {
+                        console.log("worked!");
+                    })
+                    .catch(function (e) {
+                        console.log(e);
+                    });
+            }).catch();
+        }
     </script>
 </head>
 <body>
