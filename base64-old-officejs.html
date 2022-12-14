@@ -39,7 +39,11 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <!-- Office JavaScript API -->
+    <!--
+
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.debug.js"></script>
+    -->
+    <script type="text/javascript" src="office-js/v1.1.79/office.debug.js"></script>
     <script>
         /*
         function fnLoad() {
@@ -53,9 +57,9 @@
             // Office is ready
             $(document).ready(function () {
                 // The document is ready
-                $("#GetFileContent").click(function() { GetFileContent()});
-                $("#LoadDocumentFromBase64").click(function() { LoadDocumentFromBase64() });
-                $("#InsertFileFromBase64").click(function() { InsertFileFromBase64() });
+                $("#GetFileContent").click(function () { GetFileContent() });
+                $("#LoadDocumentFromBase64").click(function () { LoadDocumentFromBase64() });
+                $("#InsertFileFromBase64").click(function () { InsertFileFromBase64() });
             });
         });
 
