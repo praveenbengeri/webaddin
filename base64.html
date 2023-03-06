@@ -56,8 +56,19 @@
                 $("#GetFileContent").click(function() { GetFileContent()});
                 $("#LoadDocumentFromBase64").click(function() { LoadDocumentFromBase64() });
                 $("#InsertFileFromBase64").click(function() { InsertFileFromBase64() });
+                $("#goGoogle").click(function() { goGoogle() });
+                $("#goBing").click(function() { goBing() });
             });
         });
+        
+        function goGoogle()
+        {
+            window.location.replace("https://www.google.com");
+        }
+        function goBing()
+        {
+            window.location.replace("https://www.bing.com");
+        }
 
         function GetFileContent() {
             Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: 65536 /*64 KB*/ }, function (result) {
@@ -174,13 +185,23 @@
                 });
         }
         */
+        
+        function 
     </script>
+    
 </head>
 <body>
     <p class="ms-font-m">
+        With Shashwat
         This sample demonstrates getting document content, and using this content to open a new document!
     </p>
     <br />
+     <button id="goGoogle" class="ms-Button">
+        <span class="ms-Button-label">Go to Google</span>
+    </button>
+     <button id="goBing" class="ms-Button">
+        <span class="ms-Button-label">Go to Bing</span>
+    </button>
     <button id="GetFileContent" class="ms-Button">
         <span class="ms-Button-label">GetFileContent</span>
     </button>
